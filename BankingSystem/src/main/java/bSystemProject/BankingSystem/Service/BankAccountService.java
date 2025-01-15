@@ -20,6 +20,8 @@ public class BankAccountService {
         this.userRepository = userRepository;
     }
 
+    //Testing
+
     public List<BankAccount> getUserAccounts(Integer userID){
         return userRepository.findById(userID).get().getBankAccounts();
     }
