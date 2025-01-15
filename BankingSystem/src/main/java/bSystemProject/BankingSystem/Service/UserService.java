@@ -44,11 +44,9 @@ public class UserService {
     }
 
     public UserInfo saveUserWithBankAccounts(UserInfo user) {
-        // Set the user for each bank account
         for (BankAccount bankAccount : user.getBankAccounts()) {
             bankAccount.setUser(user);
         }
-        // Save the user (this will also save the bank accounts due to CascadeType.ALL)
         return userRepository.save(user);
     }
 }

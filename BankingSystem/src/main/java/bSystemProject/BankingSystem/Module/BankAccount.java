@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name = "bank_account")
 public class BankAccount {
+    //Test
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
