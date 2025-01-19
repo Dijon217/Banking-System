@@ -1,14 +1,13 @@
 package bSystemProject.BankingSystem.Service;
 
 
-import bSystemProject.BankingSystem.Module.BankAccount;
-import bSystemProject.BankingSystem.Module.UserInfo;
+import bSystemProject.BankingSystem.Model.BankAccount;
+import bSystemProject.BankingSystem.Model.UserInfo;
 import bSystemProject.BankingSystem.Repository.BankAccountRepository;
 import bSystemProject.BankingSystem.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,5 +47,10 @@ public class UserService {
             bankAccount.setUser(user);
         }
         return userRepository.save(user);
+    }
+
+    public String deleteAll() {
+        userRepository.deleteAll();
+        return "Users deleted succesfully";
     }
 }

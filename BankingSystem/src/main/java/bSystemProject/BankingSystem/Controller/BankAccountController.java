@@ -1,12 +1,10 @@
 package bSystemProject.BankingSystem.Controller;
 
-import bSystemProject.BankingSystem.Module.BankAccount;
+import bSystemProject.BankingSystem.Model.BankAccount;
+import bSystemProject.BankingSystem.Model.InternalTransfer;
 import bSystemProject.BankingSystem.Service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,6 +18,16 @@ public class BankAccountController {
 
     public BankAccountController(BankAccountService bankAccountService) {
         this.bankAccountService = bankAccountService;
+    }
+
+    @PostMapping("/Create_Account")
+    public BankAccount createBankAccount(@RequestBody BankAccount bankAccount){
+        return bankAccountService.addBankAccount(bankAccount);
+    }
+
+    @PostMapping("/internal_transfer")
+    public List<BankAccount> internalTransfer(@RequestBody InternalTransfer transferInfo){
+        return bankAccountService.internalTransfer(transferInfo);
     }
 
     @GetMapping("/{ID}")

@@ -1,34 +1,48 @@
-package bSystemProject.BankingSystem.Module;
+package bSystemProject.BankingSystem.Model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static bSystemProject.BankingSystem.Model.UserStatus.ACTIVE;
+
 @Data
 @Entity
-@Table(name = "userinfo")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
+@Table(name = "user_info")
+//@AllArgsConstructor
+//@NoArgsConstructor
 //@JsonInclude(JsonInclude.Include.NON_NULL)  // Exclude null fields in JSON
 public class UserInfo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Integer userId;
     private String firstName;
     private String lastName;
     private String email;
     private String userName;
     private String userPassword;
-    private String userStatus;
+    private UserStatus userStatus;
     private Date memberSince;
     private Date deactivationDate;
-    // One-to-Many Relationship
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BankAccount> bankAccounts;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true) private List<BankAccount> bankAccounts;  // One-to-Many Relationship to BankAccount
+
+
+    public UserInfo(){
+
+    }
+
+    public UserInfo(String firstName, String lastName, String email, String userName, String userPassword, Date memberSince) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.memberSince = memberSince;
+        this.userStatus = ACTIVE;
+        this.deactivationDate = null;
+        this.bankAccounts = new ArrayList<>();
+    }
 
     public Integer getUserId() {
         return userId;
@@ -78,11 +92,11 @@ public class UserInfo {
         this.userPassword = userPassword;
     }
 
-    public String getUserStatus() {
+    public UserStatus getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(String userStatus) {
+    public void setUserStatus(UserStatus userStatus) {
         this.userStatus = userStatus;
     }
 
